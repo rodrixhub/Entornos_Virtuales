@@ -1,11 +1,11 @@
 import React from 'react'
-import Navbar from './Components/Navbar/Navbar'
+import { AppRouter } from './routes/AppRouter'
 
 const App = () => {
   return (
-    <div className='container'>
-      <Navbar/>
-    </div>
+    <>
+      <AppRouter />
+    </>
   )
 }
 
