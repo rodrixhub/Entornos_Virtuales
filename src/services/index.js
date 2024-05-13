@@ -1,1 +1,1 @@
-export { default as shopAPI } from './axios.service'
+export { default as eduAPI } from './axios.service'
