@@ -1,7 +1,6 @@
 import React from 'react'
-import { useState, useEffect, useRef } from 'react'
-import { Carousel, Button } from 'antd'
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { useState, useEffect } from 'react'
+import { Carousel } from 'antd'
 import { CardComponent } from '../user/CardComponent'
 
 export const CardSlider = ({ products }) => {
@@ -10,32 +9,32 @@ export const CardSlider = ({ products }) => {
 
     useEffect(() => {
         const calculateSlidesToShow = () => {
-          const screenWidth = window.innerWidth;
-          const cardWidth = 235; // Ancho aproximado de cada tarjeta en píxeles
-          const extraPixels = 100; // Número exacto de píxeles extras para mostrar una tarjeta adicional
+          const screenWidth = window.innerWidth
+          const cardWidth = 238 // Ancho aproximado de cada tarjeta en píxeles
+          const extraPixels = 100 // Número exacto de píxeles extras para mostrar una tarjeta adicional
     
           // Calculamos el número de tarjetas en función del ancho disponible y el ancho de cada tarjeta
-          const calculatedSlidesToShow = Math.floor((screenWidth + extraPixels) / cardWidth);
+          const calculatedSlidesToShow = Math.floor((screenWidth + extraPixels) / cardWidth)
             
           // Aseguramos que haya al menos una tarjeta mostrada
-          setSlidesToShow(Math.max(1, calculatedSlidesToShow));
-        };
+          setSlidesToShow(Math.max(1, calculatedSlidesToShow))
+        }
     
-        calculateSlidesToShow();
+        calculateSlidesToShow()
     
         const handleResize = () => {
           calculateSlidesToShow();
-        };
+        }
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize)
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
     function SampleNextArrow(props) {
-        const { className, style, onClick } = props;
+        const { className, style, onClick } = props
         return (
             <div
                 className={className}
@@ -52,11 +51,11 @@ export const CardSlider = ({ products }) => {
                 onClick={onClick}
             >
             </div>
-        );
+        )
       }
       
       function SamplePrevArrow(props) {
-        const { className, style, onClick } = props;
+        const { className, style, onClick } = props
         return (
             <div
                 className={className}
@@ -68,17 +67,15 @@ export const CardSlider = ({ products }) => {
                     background: "white",
                     width: "20px", // Ancho del rectángulo
                     height: "20px", // Alto del rectángulo
-                    color: "black", // Color del icono de la flecha.
+                    color: "black" // Color del icono de la flecha.
                 }}
                 onClick={onClick}
-            >
-                
-            </div>
-        );
+            />
+        )
       }
     return (
         <Carousel 
-            
+            autoplay
             infinite 
             arrows
             nextArrow={<SampleNextArrow />}
@@ -93,7 +90,7 @@ export const CardSlider = ({ products }) => {
                 </div>
             ))}
         </Carousel>
-    );
-};
+    )
+}
 
-export default CardSlider;
+export default CardSlider

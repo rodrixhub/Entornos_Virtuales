@@ -1,36 +1,61 @@
 import React from 'react'
-import { Avatar, Menu, Dropdown, Layout, Row, Col } from 'antd'
+import { Avatar, Dropdown, Layout, Row, Col } from 'antd'
 import { FolderOutlined, CloudUploadOutlined, UserOutlined, SettingOutlined, LogoutOutlined, HomeOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { SearchBar } from './SearchBar'
 
 export const Header = () => {
 
     const { Header } = Layout
+    const navigate = useNavigate()
 
-    const menu = (
-        <Menu>
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            Perfil
-          </Menu.Item>
-          <Menu.Divider />
-          <Menu.Item key="2" icon={<CloudUploadOutlined />}>
-            Subir Video
-          </Menu.Item>
-          <Menu.Item key="3" icon={<FolderOutlined />}>
-            Biblioteca
-          </Menu.Item>
-          <Menu.Divider />
-          <Menu.Item key="4" icon={<SettingOutlined />}>
-            Configuración
-          </Menu.Item>
-          
-          <Menu.Item key="5" icon={<LogoutOutlined />}>
-            <Link to={'/'}> Cerrar sesión </Link>
-          </Menu.Item>
-        </Menu>
-    )
+    const handleMenuClick = (e) => {
+      switch (e.key) {
+        case '1':
+          navigate('/perfil')
+          break
+        case '2':
+          navigate('/subir-video')
+          break
+        case '3':
+          navigate('/biblioteca')
+          break
+        case '4':
+          navigate('/')
+          break
+        default:
+          break
+      }
+    }
+
+    const items = [
+      {
+        label: 'Perfil',
+        key: '1',
+        icon: <UserOutlined />
+      },
+      {
+        label: 'Subir Video',
+        key: '2',
+        icon: <CloudUploadOutlined />
+      },
+      {
+        label: 'Biblioteca',
+        key: '3',
+        icon: <FolderOutlined />
+      },
+      {
+        label: 'Cerrar Sesion',
+        key: '4',
+        icon: <LogoutOutlined />
+      }
+    ]
+
+    const menuProps = {
+      items,
+      onClick: handleMenuClick
+    }
 
     return(
         <Header className="header">
@@ -44,14 +69,14 @@ export const Header = () => {
                     <SearchBar />
                 </Col>
                 <Col className='Dropdown'>
-                    <Dropdown overlay={menu} trigger={['click']}>
-                        <Avatar 
-                            size="large"
-                            icon={<UserOutlined />} 
-                            style={{
-                                backgroundColor: 'red'
-                            }}
-                        />
+                    <Dropdown menu={menuProps} trigger={['click']}>
+                      <Avatar 
+                        size="large"
+                        icon={<UserOutlined />} 
+                        style={{
+                            backgroundColor: 'red'
+                        }}
+                      />
                     </Dropdown>
                 </Col>
             </Row>
