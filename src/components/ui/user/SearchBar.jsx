@@ -28,13 +28,15 @@ export const SearchBar = () => {
             handleSearch()
         }
     }, [selection])
+
     useEffect(() => {
         getAll()
     }, [])
 
     const handleSearch = () => {
+        //console.log(selection)
         if (selection.type === 'clase') {
-            navigate(`/`)
+            navigate(`/user/clase/${selection.id}`)
         } else if (selection.type === 'video') {
             navigate(`/`)
         }
@@ -54,14 +56,14 @@ export const SearchBar = () => {
         )
         return filteredData.map(option => ({
             value: option.name,
-            id: option.slug,
+            id: option._id,
             type: option.type
         }));
     }
 
     const onSelect = (value, option) => {
         setSelection({ ...option })
-        handleSearch()
+        handleSearch({ ...option })
     }
     
     return (

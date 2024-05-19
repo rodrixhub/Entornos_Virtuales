@@ -1,7 +1,7 @@
 import React from 'react'
-import { Layout, Button, Row, Col  } from 'antd';
+import { Layout, Button, Row, Col  } from 'antd'
 import { HomeOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 export const Header = () => {
 
