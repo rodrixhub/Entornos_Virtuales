@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar, Dropdown, Layout, Row, Col } from 'antd'
-import { FolderOutlined, CloudUploadOutlined, UserOutlined, SettingOutlined, LogoutOutlined, HomeOutlined } from '@ant-design/icons'
+import { FolderOutlined, CloudUploadOutlined, UserOutlined, LogoutOutlined, HomeOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { SearchBar } from './SearchBar'
@@ -16,10 +16,10 @@ export const Header = () => {
           navigate('/perfil')
           break
         case '2':
-          navigate('/subir-video')
+          navigate('/UploadPage')
           break
         case '3':
-          navigate('/biblioteca')
+          navigate('/BibliotecaPage')
           break
         case '4':
           navigate('/')

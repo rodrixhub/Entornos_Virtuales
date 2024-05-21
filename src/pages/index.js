@@ -1,3 +1,5 @@
 export * from './HomePage'
 export * from './HomeUser'
 export * from './ClasePage'
+export * from './UploadPage'
+export * from './BibliotecaPage'

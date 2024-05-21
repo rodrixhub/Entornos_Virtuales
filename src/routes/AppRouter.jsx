@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import { HomePage, HomeUser, ClasePage } from '../pages'
+import { HomePage, HomeUser, ClasePage, UploadPage, BibliotecaPage } from '../pages'
 
 const router = createBrowserRouter([
     {
@@ -16,6 +16,16 @@ const router = createBrowserRouter([
     {
         path: '/user/Clase/:id',
         element: <ClasePage />,
+        errorElement: <h1>Error</h1>
+    },
+    {
+        path: '/UploadPage',
+        element: <UploadPage />,
+        errorElement: <h1>Error</h1>
+    },
+    {
+        path: '/BibliotecaPage',
+        element: <BibliotecaPage />,
         errorElement: <h1>Error</h1>
     }
 ])
