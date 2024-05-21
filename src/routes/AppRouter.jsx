@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import { HomePage, HomeUser, ClasePage, UploadPage, BibliotecaPage } from '../pages'
+import { HomePage, HomeUser, ClasePage, UploadPage, BibliotecaPage, ReproducirPage } from '../pages'
 
 const router = createBrowserRouter([
     {
@@ -27,7 +27,12 @@ const router = createBrowserRouter([
         path: '/BibliotecaPage',
         element: <BibliotecaPage />,
         errorElement: <h1>Error</h1>
-    }
+    },
+    {
+        path: '/ReproducirPage/:id',
+        element: <ReproducirPage />,
+        errorElement: <h1>Error</h1>
+    }
 ])
 
 export const AppRouter = () => {
