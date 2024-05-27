@@ -37,7 +37,7 @@ export const BibliotecaPage = () => {
       <h1>BIBLIOTECA</h1>
       <div className="video-grid">
       {videos.map((video) => (
-          <Link to={`/ReproducirPage/${video._id}`} key={video._id} className="video-card">
+          <Link to={`/user/ReproducirPage/${video._id}`} key={video._id} className="video-card">
             <h2>{video.name}</h2>
             <p>{video.description}</p>
             <video width="320" height="240" controls>

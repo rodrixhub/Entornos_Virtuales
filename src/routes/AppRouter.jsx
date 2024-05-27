@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import { HomePage, HomeUser, ClasePage, UploadPage, BibliotecaPage, ReproducirPage } from '../pages'
+import { HomePage, HomeUser, ClasePage, UploadPage, BibliotecaPage, ReproducirPage, ReproducirUsuario } from '../pages'
 
 const router = createBrowserRouter([
     {
@@ -19,18 +19,23 @@ const router = createBrowserRouter([
         errorElement: <h1>Error</h1>
     },
     {
-        path: '/UploadPage',
+        path: '/user/UploadPage',
         element: <UploadPage />,
         errorElement: <h1>Error</h1>
     },
     {
-        path: '/BibliotecaPage',
+        path: '/user/BibliotecaPage',
         element: <BibliotecaPage />,
         errorElement: <h1>Error</h1>
     },
     {
-        path: '/ReproducirPage/:id',
+        path: '/user/ReproducirPage/:id',
         element: <ReproducirPage />,
+        errorElement: <h1>Error</h1>
+    },
+    {
+        path: '/user/ReproducirUsuario/:id',
+        element: <ReproducirUsuario />,
         errorElement: <h1>Error</h1>
     }
 ])

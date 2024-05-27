@@ -1,21 +1,31 @@
 import React from 'react'
 import { Card } from 'antd'
-import videoImagen from '../../../assets/image.png'
-
-//const { Meta } = Card
+import { Link } from 'react-router-dom';
 
 export const CardComponent = (props) => {
-    //console.log('Props recibidas:', props); 
-    const { data: { name } } = props;
+    const { data: { _id, name, videoPath } } = props;
 
     return (
-        <Card 
-            hoverable
-            style={{ width: 200, display: 'inline-block' }}
-            cover={<img alt={name} src={videoImagen} />}
-        >
-            <Card.Meta title={name}/>
-        </Card>
+        <Link   to={`/user/ReproducirUsuario/${_id}`} 
+                style={{ textDecoration: 'none' }}>
+            <Card 
+                hoverable
+                style={{ 
+                    width: 300, 
+                    height: 250,
+                    display: 'inline-block',
+                    overflow: 'hidden'
+                }}
+                cover={<video 
+                    src={`http://localhost:8080/${videoPath}`} 
+                    alt={name} 
+                    style={{ height: '180px', width: '100%', objectFit: 'cover' }} 
+                    //controls 
+                />}
+            >
+                <Card.Meta title={name}/>
+            </Card>
+        </Link>
     )
 }
 
