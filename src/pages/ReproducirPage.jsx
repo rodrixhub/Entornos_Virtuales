@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Layout, Typography, Button, Form, Input, Select, Space, Modal, message, Radio, Card, Divider, Badge, Checkbox } from 'antd';
+import { Layout, Typography, Button, Form, Input, Select, Space, Modal, message, Card, Divider, Badge, Checkbox } from 'antd';
 import { UserLayout } from '../components/layouts/UserLayout';
 import { useParams } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import { eduAPI } from '../services';
-
-const { Content } = Layout;
-const { Option } = Select;
 
 // Componente para renderizar las preguntas y respuestas del formulario
 const QuestionFormItems = ({ fields, add, remove }) => (
@@ -141,6 +138,8 @@ const ResolveQuestionnaireModal = ({ visible, onCancel, onSubmit, questions, for
 );
 
 export const ReproducirPage = () => {
+    const { Content } = Layout;
+
     const { id } = useParams();
     const [video, setVideo] = useState(null);
     //Modals
