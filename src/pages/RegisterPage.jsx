@@ -15,6 +15,7 @@ const RegisterPage = () => {
       const response = await axios.post('http://localhost:8080/api/register-user', values);
       setResponseMessage(response.data.message);
       if (response.data.success) {
+
         message.success('Registro exitoso');
         // Redirigir al usuario a la página /user después de un registro exitoso
         navigate('/user');
@@ -37,6 +38,7 @@ const RegisterPage = () => {
   return (
     <UserLayout>
       <div className="register-container" style={{ maxWidth: 400, margin: 'auto', padding: '2rem' }}>
+
         <h2>REGISTRATE</h2>
         <Form
           name="register"
@@ -44,6 +46,7 @@ const RegisterPage = () => {
           layout="vertical"
         >
           <Form.Item
+
             label="Nombre"
             name="name"
             rules={[{ required: true, message: 'Please input your name!' }]}
@@ -61,6 +64,7 @@ const RegisterPage = () => {
             <Input />
           </Form.Item>
           <Form.Item
+
             label="Contraseña"
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
@@ -69,6 +73,7 @@ const RegisterPage = () => {
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={loading} style={{ marginRight: '10px' }}>
+
               Registrarse
             </Button>
             <Button type="default" onClick={handleLoginRedirect}>
