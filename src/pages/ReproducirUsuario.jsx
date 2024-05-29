@@ -16,6 +16,11 @@ const ResolveQuestionnaireModal = ({ visible, onCancel, onSubmit, question, form
             {question ? (
                 <div key={question._id} style={{ marginBottom: 16 }}>
                     <Typography.Text>{question.questionText}</Typography.Text>
+                    {question.pista && (
+                        <Typography.Text style={{ display: 'block', margin: '8px 0', color: 'grey' }}>
+                            Pista: {question.pista}
+                        </Typography.Text>
+                    )}
                     <Form.Item
                         name={`question_${question._id}`}
                         rules={[{ required: true, message: 'Por favor seleccione una respuesta' }]}
@@ -122,7 +127,7 @@ export const ReproducirUsuario = () => {
                 message.open({
                     content: (
                         <span>
-                            {isCorrect ? <CheckCircleFilled style={{ color: 'green', marginRight: '8px'}} /> : <CloseCircleFilled style={{ color: 'red', marginRight: '8px' }} />}
+                            {isCorrect ? <CheckCircleFilled style={{ color: 'green', marginRight: '8px' }} /> : <CloseCircleFilled style={{ color: 'red', marginRight: '8px' }} />}
                             {isCorrect ? "Correcto" : "Incorrecto"}
                         </span>
                     ),
@@ -133,7 +138,7 @@ export const ReproducirUsuario = () => {
         setIsResolveModalVisible(false);
         setCurrentQuestion(null);
         form.resetFields();
-    };    
+    };       
 
     // Función para cerrar el modal de resolver cuestionario y resetear el formulario
     const handleResolveCancel = () => {
