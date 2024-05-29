@@ -18,7 +18,7 @@ export const Header = () => {
                     </div>
                 </Col>
                 <Col>
-                    <Link to={'/user'}>
+                    <Link to={'/Registerpage'}>
                         <Button type= 'primary'> Iniciar Sesion </Button>
                     </Link>
                 </Col>

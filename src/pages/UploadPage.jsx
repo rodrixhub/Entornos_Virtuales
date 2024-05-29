@@ -39,7 +39,7 @@ export const UploadPage = () => {
             <h1>Subir Video</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="name">Name:</label>
+                    <label htmlFor="name">Titulo:</label>
                     <input
                         type="text"
                         id="name"
@@ -49,7 +49,7 @@ export const UploadPage = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="description">Description:</label>
+                    <label htmlFor="description">Descripcion:</label>
                     <textarea
                         id="description"
                         value={description}
