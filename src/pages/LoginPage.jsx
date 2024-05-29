@@ -33,7 +33,9 @@ const LoginPage = () => {
   return (
     <UserLayout>
       <div className="login-container" style={{ maxWidth: 400, margin: 'auto', padding: '2rem' }}>
-        <h2>Login</h2>
+
+        <h2>Iniciar sesion</h2>
+
         <Form
           name="login"
           onFinish={handleSubmit}
@@ -50,7 +52,8 @@ const LoginPage = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Password"
+
+            label="Contraseña"
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
@@ -58,7 +61,9 @@ const LoginPage = () => {
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={loading} style={{ marginRight: '10px' }}>
-              Login
+
+              Ingresar
+
             </Button>
           </Form.Item>
         </Form>
