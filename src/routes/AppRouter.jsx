@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import { HomePage, HomeUser, ClasePage, UploadPage, BibliotecaPage, ReproducirPage, ReproducirUsuario } from '../pages'
+import { HomePage, HomeUser, ClasePage, UploadPage, BibliotecaPage, ReproducirPage, ReproducirUsuario, LoginPage, RegisterPage } from '../pages'
 
 const router = createBrowserRouter([
     {
@@ -37,7 +37,17 @@ const router = createBrowserRouter([
         path: '/user/ReproducirUsuario/:id',
         element: <ReproducirUsuario />,
         errorElement: <h1>Error</h1>
-    }
+    },
+{
+    path: '/LoginPage',
+    element: <LoginPage />,
+    errorElement: <h1>error</h1>
+},
+{
+    path: '/RegisterPage',
+    element: <RegisterPage />,
+    errorElement: <h1>error</h1>
+}
 ])
 
 export const AppRouter = () => {
