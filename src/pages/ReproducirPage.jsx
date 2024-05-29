@@ -19,6 +19,14 @@ const QuestionFormItems = ({ fields, add, remove }) => (
                 >
                     <Input />
                 </Form.Item>
+                <Form.Item
+                    {...restField}
+                    name={[name, 'pista']}
+                    fieldKey={[fieldKey, 'pista']}
+                    label={`Pista de la pregunta ${index + 1}`}
+                >
+                    <Input placeholder="Pista (opcional)" />
+                </Form.Item>
                 <Form.List name={[name, 'answers']}>
                     {(answerFields, { add: addAnswer, remove: removeAnswer }) => (
                         <>
@@ -61,6 +69,7 @@ const QuestionFormItems = ({ fields, add, remove }) => (
         <Form.Item>
             <Button type="dashed" onClick={() => add({
                 questionText: '',
+                pista: '', // Inicializar el campo pista
                 answers: [] // Inicializar sin respuestas
             })} block icon={<PlusOutlined />}>
                 Añadir Pregunta
@@ -238,6 +247,7 @@ export const ReproducirPage = () => {
             // Construir las nuevas preguntas
             const newQuestions = values.questions.map(question => ({
                 questionText: question.questionText,
+                pista: question.pista || '', // Aquí se añade el campo pista
                 options: question.answers.filter(answer => answer.answer !== '').map(answer => ({
                     text: answer.answer,
                     isCorrect: answer.isCorrect === "true"
@@ -260,8 +270,7 @@ export const ReproducirPage = () => {
         } finally {
             setIsAddModalVisible(false);
         }
-    };
-    
+    };    
 
     // Función para manejar el envío del formulario de resolver cuestionario
     const handleResolveFormSubmit = async () => {
@@ -324,6 +333,11 @@ export const ReproducirPage = () => {
                                     Tiempo: {question.time} segundos
                                 </Typography.Paragraph>
                                 <Typography.Paragraph>{question.questionText}</Typography.Paragraph>
+                                {question.pista && (
+                                    <Typography.Paragraph style={{ fontStyle: 'italic', color: '#888' }}>
+                                        Pista: {question.pista}
+                                    </Typography.Paragraph>
+                                )}
                                 <ul>
                                     {question.options.map((option, idx) => (
                                         <li key={`${question._id}-${idx}`} style={{ display: 'flex', alignItems: 'center' }}>

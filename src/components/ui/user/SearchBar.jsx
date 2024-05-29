@@ -34,11 +34,11 @@ export const SearchBar = () => {
     }, [])
 
     const handleSearch = () => {
-        //console.log(selection)
+        console.log(selection)
         if (selection.type === 'clase') {
             navigate(`/user/clase/${selection.id}`)
         } else if (selection.type === 'video') {
-            navigate(`/`)
+            navigate(`/user/ReproducirUsuario/${selection.id}`)
         }
     }
 
