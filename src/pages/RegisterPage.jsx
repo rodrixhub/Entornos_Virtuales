@@ -15,7 +15,7 @@ const RegisterPage = () => {
       const response = await axios.post('http://localhost:8080/api/register-user', values);
       setResponseMessage(response.data.message);
       if (response.data.success) {
-        message.success('User registered successfully');
+        message.success('Registro exitoso');
         // Redirigir al usuario a la página /user después de un registro exitoso
         navigate('/user');
       } else {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
 import './BibliotecaPage.css';
-
+import { UserLayout } from '../components/layouts/UserLayout';
+  
 export const BibliotecaPage = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,20 +33,22 @@ export const BibliotecaPage = () => {
   }
 
   return (
-    <div className="biblioteca-container">
-      <h1>BIBLIOTECA</h1>
-      <div className="video-grid">
-      {videos.map((video) => (
-          <Link to={`/user/ReproducirPage/${video._id}`} key={video._id} className="video-card">
-            <h2>{video.name}</h2>
-            <p>{video.description}</p>
-            <video width="320" height="240" controls>
-              <source src={`http://localhost:8080/${video.videoPath}`} type="video/mp4" />
-            </video>
-          </Link>
-        ))}
+    <UserLayout>
+      <div className="biblioteca-container">
+        <h1>BIBLIOTECA</h1>
+        <div className="video-grid">
+          {videos.map((video) => (
+            <Link to={`/user/ReproducirPage/${video._id}`} key={video._id} className="video-card">
+              <h2>{video.name}</h2>
+              <p>{video.description}</p>
+              <video width="320" height="240" controls>
+                <source src={`http://localhost:8080/${video.videoPath}`} type="video/mp4" />
+              </video>
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
+    </UserLayout>
   );
 };
 

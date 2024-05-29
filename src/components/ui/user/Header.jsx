@@ -48,7 +48,7 @@ export const Header = () => {
     <Header className="header">
       <Row justify="space-between" align="middle">
         <Col className="logo">
-          <Link to="/">
+          <Link to="/user">
             <HomeOutlined style={{ fontSize: '30px' }} />
           </Link>
         </Col>

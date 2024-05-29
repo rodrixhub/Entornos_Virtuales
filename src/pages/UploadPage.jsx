@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './UploadPage.css';
- 
+import { UserLayout } from '../components/layouts/UserLayout';
+
 export const UploadPage = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -35,42 +36,44 @@ export const UploadPage = () => {
     };
 
     return (
-        <div className="upload-container">
-            <h1>Subir Video</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="name">Titulo:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="description">Descripcion:</label>
-                    <textarea
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="video">Video:</label>
-                    <input
-                        type="file"
-                        id="video"
-                        accept="video/*"
-                        onChange={handleFileChange}
-                        required
-                    />
-                </div>
-                <button type="submit">SUBIR</button>
-            </form>
-            {message && <p>{message}</p>}
-        </div>
+        <UserLayout>
+            <div className="upload-container">
+                <h1>Subir Video</h1>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="name">Titulo:</label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="description">Descripcion:</label>
+                        <textarea
+                            id="description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="video">Video:</label>
+                        <input
+                            type="file"
+                            id="video"
+                            accept="video/*"
+                            onChange={handleFileChange}
+                            required
+                        />
+                    </div>
+                    <button type="submit">SUBIR</button>
+                </form>
+                {message && <p>{message}</p>}
+            </div>
+        </UserLayout>
     );
 };
 
