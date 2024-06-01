@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Form, Input, Button, message } from 'antd';
-import { UserLayout } from '../components/layouts/UserLayout';
+import { HomeLayout } from '../components/layouts/HomeLayout';
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
@@ -36,7 +36,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <UserLayout>
+    <HomeLayout>
       <div className="register-container" style={{ maxWidth: 400, margin: 'auto', padding: '2rem' }}>
 
         <h2>REGISTRATE</h2>
@@ -83,7 +83,7 @@ const RegisterPage = () => {
         </Form>
         {responseMessage && <p>{responseMessage}</p>}
       </div>
-    </UserLayout>
+    </HomeLayout>
   );
 };
 
