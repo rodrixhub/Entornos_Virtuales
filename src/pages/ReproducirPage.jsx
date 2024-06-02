@@ -291,6 +291,13 @@ export const ReproducirPage = () => {
     // Función para manejar el cambio de respuesta seleccionada
     const handleAnswerChange = (questionId, checkedValues) => {
         setSelectedAnswers(prev => ({ ...prev, [questionId]: checkedValues }));
+    };
+
+    //Cambiar el formato de tiempo
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };      
 
     return (
@@ -330,7 +337,7 @@ export const ReproducirPage = () => {
                         {questions.map((question, index) => (
                             <div key={question._id} className="question-item" style={{ marginBottom: '20px' }}>
                                 <Typography.Paragraph className="question-time" style={{ fontWeight: 'bold', color: '#888' }}>
-                                    Tiempo: {question.time} segundos
+                                    Tiempo: {formatTime(question.time)} {/* Cambiado para usar la función de formato */}
                                 </Typography.Paragraph>
                                 <Typography.Paragraph>{question.questionText}</Typography.Paragraph>
                                 {question.pista && (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Layout, Typography, Button, Form, Modal, message, Card, Checkbox } from 'antd';
+import { Layout, Typography, Button, Form, Modal, message, Card, Checkbox, Badge, Divider  } from 'antd';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
 import { UserLayout } from '../components/layouts/UserLayout';
 import { useParams } from 'react-router-dom';
@@ -65,8 +65,6 @@ export const ReproducirUsuario = () => {
             if (data.success) {
                 setVideo(data.video);
                 setQuestions(data.video.preguntas || []);
-                console.log(data.video)
-                console.log(data.video.preguntas)
             }
         } catch (error) {
             console.log(error);
@@ -82,12 +80,10 @@ export const ReproducirUsuario = () => {
         const videoElement = videoRef.current;
         if (videoElement) {
             videoElement.addEventListener('timeupdate', handleTimeUpdate);
-            console.log('Event listener added');
         }
         return () => {
             if (videoElement) {
                 videoElement.removeEventListener('timeupdate', handleTimeUpdate);
-                console.log('Event listener removed');
             }
         };
     }, [video, questions]);
@@ -96,12 +92,10 @@ export const ReproducirUsuario = () => {
     const handleTimeUpdate = () => {
         const videoElement = videoRef.current;
         if (videoElement) {
-            console.log(`Current time: ${videoElement.currentTime}`);
             questions.forEach(question => {
                 const questionTime = parseFloat(question.time);
                 if (videoElement.currentTime >= questionTime && videoElement.currentTime < questionTime + 0.3) {
                     videoElement.pause();
-                    console.log(`Video paused at ${questionTime} seconds for question: ${question.questionText}`);
                     setCurrentQuestion(question);
                     setIsResolveModalVisible(true);
                 }
@@ -147,6 +141,12 @@ export const ReproducirUsuario = () => {
         form.resetFields();
     };
 
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    };
+
     return (
         <UserLayout>
             <Content
@@ -155,15 +155,16 @@ export const ReproducirUsuario = () => {
                     height: '100%',
                     minHeight: '84vh',
                     display: 'flex',
-                    flexDirection: 'column',
+                    flexDirection: 'column', // Cambiado para apilar verticalmente
                     justifyContent: 'center',
-                    alignItems: 'center',
+                    alignItems: 'center', // Cambiado a 'center' para centrar verticalmente
                     padding: '20px'
                 }}
             >
-                <div style={{ display: 'flex', backgroundColor: '#e0e0e0', padding: '20px', borderRadius: '10px', maxWidth: '620px', width: '100%' }}>
+                {video && <Typography.Title level={4} style={{ fontWeight: 'bold' }}>{video.name}</Typography.Title>}
+                <div style={{ display: 'flex', backgroundColor: '#e0e0e0', padding: '20px', borderRadius: '10px', maxWidth: '1200px', width: '100%' }}>
                     {video ? (
-                        <Card className="video-section" style={{ flex: 3, backgroundColor: '#fff', borderRadius: '10px' }}>
+                        <Card className="video-section" style={{ flex: 3, backgroundColor: '#fff', padding: '10px', borderRadius: '10px', marginRight: '20px' }}>
                             <video ref={videoRef} style={{ width: '100%', height: 'auto' }} controls>
                                 <source src={`http://localhost:8080/${video.videoPath}`} type="video/mp4" />
                                 Tu navegador no soporta el elemento de video.
@@ -172,6 +173,19 @@ export const ReproducirUsuario = () => {
                     ) : (
                         <Typography.Text>Loading...</Typography.Text>
                     )}
+                    <Card className="questions-section" style={{ flex: 2, backgroundColor: '#fff', padding: '20px', borderRadius: '10px', overflowY: 'auto', maxHeight: '500px', maxWidth: '300px' }}>
+                    {questions.map((question, index) => (
+                        <div key={question._id} className="question-item" style={{ marginBottom: '20px' }}>
+                            <Typography.Paragraph className="question-number" style={{ fontWeight: 'bold', color: '#888' }}>
+                                Pregunta {index + 1}
+                            </Typography.Paragraph>
+                            <Typography.Paragraph className="question-time" style={{ fontWeight: 'bold', color: '#888' }}>
+                                Tiempo: {formatTime(question.time)} {/* Cambiado para usar la función de formato */}
+                            </Typography.Paragraph>
+                            <Divider />
+                        </div>
+                    ))}
+                </Card>
                 </div>
                 <ResolveQuestionnaireModal
                     visible={isResolveModalVisible}
