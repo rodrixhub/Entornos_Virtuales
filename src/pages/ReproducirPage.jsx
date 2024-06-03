@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Layout, Typography, Button, Form, Input, Select, Space, Modal, message, Card, Divider, Badge, Checkbox } from 'antd';
 import { UserLayout } from '../components/layouts/UserLayout';
 import { useParams } from 'react-router-dom';
@@ -18,6 +19,14 @@ const QuestionFormItems = ({ fields, add, remove }) => (
                     rules={[{ required: true, message: 'Por favor ingrese la pregunta' }]}
                 >
                     <Input />
+                </Form.Item>
+                <Form.Item
+                    {...restField}
+                    name={[name, 'intentosPermitidos']}
+                    fieldKey={[fieldKey, 'intentosPermitidos']}
+                    label={`Intentos Permitidos`}
+                >
+                    <Input placeholder="Número de intentos permitidos" />
                 </Form.Item>
                 <Form.Item
                     {...restField}
@@ -69,6 +78,7 @@ const QuestionFormItems = ({ fields, add, remove }) => (
         <Form.Item>
             <Button type="dashed" onClick={() => add({
                 questionText: '',
+                intentosPermitidos: 1, // Inicializar intentosPermitidos con valor predeterminado
                 pista: '', // Inicializar el campo pista
                 answers: [] // Inicializar sin respuestas
             })} block icon={<PlusOutlined />}>
@@ -180,7 +190,7 @@ export const ReproducirPage = () => {
     const handleTimeUpdate = () => {
         const videoElement = videoRef.current;
         if (videoElement && videoElement.currentTime >= pauseTime) {
-            videoElement.pause();
+            videoElement.pause(); 
         }
     };
 
@@ -188,7 +198,7 @@ export const ReproducirPage = () => {
     useEffect(() => {
         getVideo();
     }, []);
-    
+     
     // useEffect para añadir y remover el event listener del video
     useEffect(() => {
         const videoElement = videoRef.current;
@@ -248,6 +258,7 @@ export const ReproducirPage = () => {
             const newQuestions = values.questions.map(question => ({
                 questionText: question.questionText,
                 pista: question.pista || '', // Aquí se añade el campo pista
+                intentosPermitidos: question.intentosPermitidos || 1, // Asegurar valor predeterminado de 1
                 options: question.answers.filter(answer => answer.answer !== '').map(answer => ({
                     text: answer.answer,
                     isCorrect: answer.isCorrect === "true"
@@ -270,7 +281,7 @@ export const ReproducirPage = () => {
         } finally {
             setIsAddModalVisible(false);
         }
-    };    
+    };           
 
     // Función para manejar el envío del formulario de resolver cuestionario
     const handleResolveFormSubmit = async () => {
@@ -340,6 +351,9 @@ export const ReproducirPage = () => {
                                     Tiempo: {formatTime(question.time)} {/* Cambiado para usar la función de formato */}
                                 </Typography.Paragraph>
                                 <Typography.Paragraph>{question.questionText}</Typography.Paragraph>
+                                <Typography.Paragraph style={{ color: '#888' }}>
+                                    Intentos Permitidos: {question.intentosPermitidos}
+                                </Typography.Paragraph>
                                 {question.pista && (
                                     <Typography.Paragraph style={{ fontStyle: 'italic', color: '#888' }}>
                                         Pista: {question.pista}
