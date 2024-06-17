@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Form, Input, Button, message } from 'antd';
-import { UserLayout } from '../components/layouts/UserLayout';
+import { HomeLayout } from '../components/layouts/HomeLayout';
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
@@ -16,6 +16,8 @@ const LoginPage = () => {
       setResponseMessage(response.data.message);
       if (response.data.success) {
         message.success('Login successful');
+        // Guardar el userId en el localStorage
+        localStorage.setItem('user', JSON.stringify({ userId: response.data.userId }));
         // Redirigir al usuario a la página principal o a la que desees
         navigate('/user');
       } else {
@@ -31,9 +33,11 @@ const LoginPage = () => {
   };
 
   return (
-    <UserLayout>
+    <HomeLayout>
       <div className="login-container" style={{ maxWidth: 400, margin: 'auto', padding: '2rem' }}>
-        <h2>Login</h2>
+
+        <h2>Iniciar sesion</h2>
+
         <Form
           name="login"
           onFinish={handleSubmit}
@@ -50,7 +54,8 @@ const LoginPage = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Password"
+
+            label="Contraseña"
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
@@ -58,13 +63,15 @@ const LoginPage = () => {
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={loading} style={{ marginRight: '10px' }}>
-              Login
+
+              Ingresar
+
             </Button>
           </Form.Item>
         </Form>
         {responseMessage && <p>{responseMessage}</p>}
       </div>
-    </UserLayout>
+    </HomeLayout>
   );
 };
 

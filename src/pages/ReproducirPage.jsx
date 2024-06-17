@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Layout, Typography, Button, Form, Input, Select, Space, Modal, message, Card, Divider, Badge, Checkbox } from 'antd';
 import { UserLayout } from '../components/layouts/UserLayout';
 import { useParams } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import { eduAPI } from '../services';
+import { saveAs } from 'file-saver';
 
 // Componente para renderizar las preguntas y respuestas del formulario
 const QuestionFormItems = ({ fields, add, remove }) => (
@@ -18,6 +20,22 @@ const QuestionFormItems = ({ fields, add, remove }) => (
                     rules={[{ required: true, message: 'Por favor ingrese la pregunta' }]}
                 >
                     <Input />
+                </Form.Item>
+                <Form.Item
+                    {...restField}
+                    name={[name, 'intentosPermitidos']}
+                    fieldKey={[fieldKey, 'intentosPermitidos']}
+                    label={`Intentos Permitidos`}
+                >
+                    <Input placeholder="Número de intentos permitidos" />
+                </Form.Item>
+                <Form.Item
+                    {...restField}
+                    name={[name, 'pista']}
+                    fieldKey={[fieldKey, 'pista']}
+                    label={`Pista de la pregunta ${index + 1}`}
+                >
+                    <Input placeholder="Pista (opcional)" />
                 </Form.Item>
                 <Form.List name={[name, 'answers']}>
                     {(answerFields, { add: addAnswer, remove: removeAnswer }) => (
@@ -61,6 +79,8 @@ const QuestionFormItems = ({ fields, add, remove }) => (
         <Form.Item>
             <Button type="dashed" onClick={() => add({
                 questionText: '',
+                intentosPermitidos: 1, // Inicializar intentosPermitidos con valor predeterminado
+                pista: '', // Inicializar el campo pista
                 answers: [] // Inicializar sin respuestas
             })} block icon={<PlusOutlined />}>
                 Añadir Pregunta
@@ -171,7 +191,7 @@ export const ReproducirPage = () => {
     const handleTimeUpdate = () => {
         const videoElement = videoRef.current;
         if (videoElement && videoElement.currentTime >= pauseTime) {
-            videoElement.pause();
+            videoElement.pause(); 
         }
     };
 
@@ -179,7 +199,7 @@ export const ReproducirPage = () => {
     useEffect(() => {
         getVideo();
     }, []);
-    
+     
     // useEffect para añadir y remover el event listener del video
     useEffect(() => {
         const videoElement = videoRef.current;
@@ -238,6 +258,8 @@ export const ReproducirPage = () => {
             // Construir las nuevas preguntas
             const newQuestions = values.questions.map(question => ({
                 questionText: question.questionText,
+                pista: question.pista || '', // Aquí se añade el campo pista
+                intentosPermitidos: question.intentosPermitidos || 1, // Asegurar valor predeterminado de 1
                 options: question.answers.filter(answer => answer.answer !== '').map(answer => ({
                     text: answer.answer,
                     isCorrect: answer.isCorrect === "true"
@@ -260,8 +282,7 @@ export const ReproducirPage = () => {
         } finally {
             setIsAddModalVisible(false);
         }
-    };
-    
+    };           
 
     // Función para manejar el envío del formulario de resolver cuestionario
     const handleResolveFormSubmit = async () => {
@@ -282,7 +303,35 @@ export const ReproducirPage = () => {
     // Función para manejar el cambio de respuesta seleccionada
     const handleAnswerChange = (questionId, checkedValues) => {
         setSelectedAnswers(prev => ({ ...prev, [questionId]: checkedValues }));
+    };
+
+    //Cambiar el formato de tiempo
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };      
+
+    const handleExportScorm = async () => {
+        try {
+            const response = await eduAPI.get(`/scorm/export/${id}`, { responseType: 'blob' });
+            if (response.data) {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'scorm_export.zip');
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                message.success("SCORM exportado exitosamente");
+            } else {
+                message.error("Error al exportar SCORM");
+            }
+        } catch (error) {
+            message.error("Error en la solicitud al servidor");
+            console.error(error);
+        }
+    };
 
     return (
         <UserLayout>
@@ -312,6 +361,9 @@ export const ReproducirPage = () => {
                                 <Button type="primary" onClick={showResolveModal}>
                                     Resolver Cuestionario
                                 </Button>
+                                <Button type="primary" onClick={handleExportScorm}>
+                                    Exportar Scorm
+                                </Button>
                             </Space>
                         </Card>
                     ) : (
@@ -321,9 +373,17 @@ export const ReproducirPage = () => {
                         {questions.map((question, index) => (
                             <div key={question._id} className="question-item" style={{ marginBottom: '20px' }}>
                                 <Typography.Paragraph className="question-time" style={{ fontWeight: 'bold', color: '#888' }}>
-                                    Tiempo: {question.time} segundos
+                                    Tiempo: {formatTime(question.time)} {/* Cambiado para usar la función de formato */}
                                 </Typography.Paragraph>
                                 <Typography.Paragraph>{question.questionText}</Typography.Paragraph>
+                                <Typography.Paragraph style={{ color: '#888' }}>
+                                    Intentos Permitidos: {question.intentosPermitidos}
+                                </Typography.Paragraph>
+                                {question.pista && (
+                                    <Typography.Paragraph style={{ fontStyle: 'italic', color: '#888' }}>
+                                        Pista: {question.pista}
+                                    </Typography.Paragraph>
+                                )}
                                 <ul>
                                     {question.options.map((option, idx) => (
                                         <li key={`${question._id}-${idx}`} style={{ display: 'flex', alignItems: 'center' }}>

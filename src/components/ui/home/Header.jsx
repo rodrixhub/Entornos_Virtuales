@@ -12,7 +12,7 @@ export const Header = () => {
             <Row justify={"space-between"} align="middle">
                 <Col>
                     <div className="logo">
-                        <Link to={'/'} >
+                        <Link to={'/user'} >
                             <HomeOutlined style={{ fontSize: '30px' }} />    
                         </Link>
                     </div>
