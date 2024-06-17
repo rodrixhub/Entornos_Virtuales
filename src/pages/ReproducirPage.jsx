@@ -5,6 +5,7 @@ import { UserLayout } from '../components/layouts/UserLayout';
 import { useParams } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import { eduAPI } from '../services';
+import { saveAs } from 'file-saver';
 
 // Componente para renderizar las preguntas y respuestas del formulario
 const QuestionFormItems = ({ fields, add, remove }) => (
@@ -311,6 +312,27 @@ export const ReproducirPage = () => {
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };      
 
+    const handleExportScorm = async () => {
+        try {
+            const response = await eduAPI.get(`/scorm/export/${id}`, { responseType: 'blob' });
+            if (response.data) {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'scorm_export.zip');
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                message.success("SCORM exportado exitosamente");
+            } else {
+                message.error("Error al exportar SCORM");
+            }
+        } catch (error) {
+            message.error("Error en la solicitud al servidor");
+            console.error(error);
+        }
+    };
+
     return (
         <UserLayout>
             <Content
@@ -338,6 +360,9 @@ export const ReproducirPage = () => {
                                 </Button>
                                 <Button type="primary" onClick={showResolveModal}>
                                     Resolver Cuestionario
+                                </Button>
+                                <Button type="primary" onClick={handleExportScorm}>
+                                    Exportar Scorm
                                 </Button>
                             </Space>
                         </Card>
