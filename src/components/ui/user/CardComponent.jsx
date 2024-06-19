@@ -6,8 +6,9 @@ export const CardComponent = (props) => {
     const { data: { _id, name, videoPath } } = props;
 
     return (
-        <Link   to={`/user/ReproducirUsuario/${_id}`} 
-                style={{ textDecoration: 'none' }}>
+        <Link   
+            to={`/user/ReproducirUsuario/${_id}`} 
+        >
             <Card 
                 hoverable
                 style={{ 
@@ -16,12 +17,14 @@ export const CardComponent = (props) => {
                     display: 'inline-block',
                     overflow: 'hidden'
                 }}
-                cover={<video 
-                    src={`http://localhost:8080/${videoPath}`} 
-                    alt={name} 
-                    style={{ height: '180px', width: '100%', objectFit: 'cover' }} 
-                    //controls 
-                />}
+                cover={
+                    <video 
+                        src={`http://localhost:8080/${videoPath}`} 
+                        alt={name} 
+                        style={{ height: '180px', width: '100%', objectFit: 'cover' }} 
+                        //controls 
+                    />
+                }
             >
                 <Card.Meta title={name}/>
             </Card>
