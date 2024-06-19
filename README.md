@@ -1,6 +1,10 @@
 # React + Vite
 
-GRUPO 2
+GRUPO 2 
+Integrantes 
+Marin Ovando Sebastian Gustavo
+Ledezma Choque Julio Rodrigo
+Ureña Vidal Kevin Raul
 
 Currently, two official plugins are available:
 
