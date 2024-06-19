@@ -2,9 +2,11 @@
 
 GRUPO 2 
 Integrantes 
-Marin Ovando Sebastian Gustavo
-Ledezma Choque Julio Rodrigo
-Ureña Vidal Kevin Raul
+- Marin Ovando Sebastian Gustavo
+- Ledezma Choque Julio Rodrigo
+- Ureña Vidal Kevin Raul
+- Github backend:
+- https://github.com/kruv15/BackEVA.git
 
 Currently, two official plugins are available:
 
