@@ -7,41 +7,44 @@ export const CardSlider = () => {
     const [videos, setVideos] = useState([]);
     const [slidesToShow, setSlidesToShow] = useState(2);
 
+    const fetchVideos = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/video/video');
+            setVideos(response.data.video);
+        } catch (error) {
+            console.error('Error fetching videos', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchVideos = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/api/video/video');
-                setVideos(response.data.video);
-            } catch (error) {
-                console.error('Error fetching videos', error);
-            }
-        };
-
-        const calculateSlidesToShow = () => {
-            const screenWidth = window.innerWidth;
-            const cardWidth = 360; // Ancho aproximado de cada tarjeta en píxeles incluyendo margen
-            const extraPixels = 100; // Número exacto de píxeles extras para mostrar una tarjeta adicional
-        
-            // Calculamos el número de tarjetas en función del ancho disponible y el ancho de cada tarjeta
-            const calculatedSlidesToShow = Math.floor((screenWidth + extraPixels) / cardWidth);
-            
-            // Aseguramos que haya al menos una tarjeta mostrada
-            setSlidesToShow(Math.max(1, calculatedSlidesToShow));
-        };
-
         fetchVideos();
-        calculateSlidesToShow();
-
-        const handleResize = () => {
-            calculateSlidesToShow();
-        };
-
         window.addEventListener('resize', handleResize);
+        console.log("Actualizcion")
+    }, []);
 
-        return () => {
+    const calculateSlidesToShow = () => {
+        const screenWidth = window.innerWidth;
+        const cardWidth = 360; // Ancho aproximado de cada tarjeta en píxeles incluyendo margen
+        const extraPixels = 100; // Número exacto de píxeles extras para mostrar una tarjeta adicional
+    
+        // Calculamos el número de tarjetas en función del ancho disponible y el ancho de cada tarjeta
+        const calculatedSlidesToShow = Math.floor((screenWidth + extraPixels) / cardWidth);
+        
+        // Aseguramos que haya al menos una tarjeta mostrada
+        setSlidesToShow(Math.max(1, calculatedSlidesToShow));
+    };
+
+    const handleResize = () => {
+        calculateSlidesToShow();
+    };
+
+    /*useEffect(() => {
+        
+        console.log("Actualiza flechas")
+        /*return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [])*/
 
     function SampleNextArrow(props) {
         const { className, style, onClick } = props;
@@ -85,7 +88,7 @@ export const CardSlider = () => {
 
     return (
         <Carousel 
-            autoplay
+            
             infinite 
             arrows
             nextArrow={<SampleNextArrow />}
