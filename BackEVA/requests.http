@@ -1,0 +1,96 @@
+###
+POST http://localhost:8080/api/pregunta/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "questionText": "¿Cuál es la capital de Francia?",
+    "options": [
+      {"text": "París", "isCorrect": true},
+      {"text": "Londres", "isCorrect": false}
+    ]
+}
+//665410d5f2b923202daa1008
+### 
+PUT http://localhost:8080/api/video/updatePreguntaVideo HTTP/1.1
+Content-Type: application/json
+
+{
+    "_id": "6652989d3b05a49b4c500840",
+    "preguntas": [
+        {
+        "questionText": "¿Cuál es la capital de Francia?",
+        "options": [
+            {"text": "París", "isCorrect": true},
+            {"text": "Londres", "isCorrect": false}
+        ]
+        },
+        {
+        "questionText": "¿Cuál es el río más largo del mundo?",
+        "options": [
+            {"text": "Amazonas", "isCorrect": true},
+            {"text": "Nilo", "isCorrect": false}
+        ]
+        }
+    ]
+}
+
+###
+GET http://localhost:8080/api/pregunta/pregunta HTTP/1.1
+
+###
+GET http://localhost:8080/api/pregunta/pregunta/664c3b8cffcfd7165c5140a8 HTTP/1.1
+
+###
+GET http://localhost:8080/api/video/video/665555969780e340b4e0999e HTTP/1.1
+
+### 
+GET http://localhost:8080/api/video/video HTTP/1.1
+
+//6656b1d86885ae151e5e7828
+### 
+GET http://localhost:8080/api/get-user-id/6656b1d86885ae151e5e7828 HTTP/1.1
+
+###  
+POST http://localhost:8080/api/attempt/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "userId": "6656b1d86885ae151e5e7828",
+    "questionId": "6656a2c2f2bad6feaa9f29b1",
+    "intentosActuales": 1,
+    "respuestaSeleccionada": "HOla"
+} 
+###  
+POST http://localhost:8080/api/attempt/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "userId": "665cc03bef97fd0448bd6a6a",
+    "questionId": "665726780939beb9a8523435"
+
+} 
+
+###  
+GET http://localhost:8080/api/attempt/attempt HTTP/1.1
+
+###  
+GET http://localhost:8080/api/attempt/attempt/665cfea5fc5580295662958f HTTP/1.1
+
+###  
+POST http://localhost:8080/api/attempt/Attemptuser HTTP/1.1
+Content-Type: application/json
+
+{
+    "userId": "6656b1d86885ae151e5e7828",
+    "questionId": "6656a2c2f2bad6feaa9f29b1"
+}
+
+###   
+Put http://localhost:8080/api/attempt/AttemptPut HTTP/1.1
+Content-Type: application/json
+
+{
+    "_id": "665d31ee3bc1600f06b6c099",
+    "intentosActuales": 0,
+    "respuestasSeleccionadas": []
+}
