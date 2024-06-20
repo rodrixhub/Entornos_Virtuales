@@ -15,7 +15,7 @@ Abre una terminal o línea de comandos.
 Navega hasta el directorio donde quieras clonar el proyecto.
 1. Ejecuta el siguiente comando para clonar el repositorio:
    git clone https://github.com/rodrixhub/Entornos_Virtuales.git    # Front y Back
-(ojo metimos el backend en el mismo repositorio la carpeta se llama BackEva y debes instalar las dependencias en las 2 partes front y backend)
+(ojo metimos el backend en el mismo repositorio la carpeta se llama BackEva y debes instalar las dependencias en las 2 partes frontend y backend)
 2. Navegar al directorio donde está ubicado cada proyecto:
    cd Entornos_Virtuales          # Frontend
    cd BackEVA                     # Backend
@@ -24,7 +24,7 @@ Navega hasta el directorio donde quieras clonar el proyecto.
 (con las dependencias listas ya puedes ejecutar el programa)
 4. Hacer correr Front y Backend (abrir una terminar en cada carpeta del programa)
 npm run dev          # Frontend
-npm run server       # Backend
+npm run start        # Backend
 Con eso listo ya puedes hacer correr el programa
 
 ------------------------- Manual de uso ----------------------------------
@@ -34,8 +34,8 @@ Con eso listo ya puedes hacer correr el programa
 4. En el icono de usuario se mostrara la parte de la biblioteca y subir video
 5. para subir video hacer click en la parte de subir video y podras subir el contenido que necesites
 6. para poder ver donde esta tus videos, ve a la parte de la "Biblioteca" ahi estan todos los videos que subiste
-7. para añadir preguntas a tu video tienes que estar dentro de "Biblioteca"y hacer click a el video que elejias
-8. una ves dentro del video elejido tienes las opciones de añadir pregunta y exportar en formato scorm
+7. para añadir preguntas a tu video tienes que estar dentro de "Biblioteca" y hacer click a el video que elejias
+8. una ves dentro del video elegido tienes las opciones de añadir pregunta y exportar en formato scorm
 9. Para añadir la pregunta debes encontrarte en el minuto que quieras que aparezca la pregunta y añadirla
 10 Para exportar en un formato scorm solo basta con hacer click en el boton de exportar a scorm y con eso puedes subirlo a moodle o scorm cloud
  
